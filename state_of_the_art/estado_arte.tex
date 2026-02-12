@@ -1,0 +1,136 @@
+\documentclass[journal, onecolumn, 12pt]{IEEEtran}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish, es-tabla]{babel}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{array} 
+\usepackage[margin=0.75in]{geometry}
+
+\begin{document}
+
+\title{Estado del arte}
+
+\author{LPRO 25/26 - Grupo 1}
+
+\maketitle
+
+\section{Literatura científica}
+Se presentan a continuación los algoritmos y métodos hallados en la literatura científica con aplicación a la asistencia de arbitraje.
+
+\subsection{Detección y seguimiento de objetos}
+Seguir a los 22 jugadores y el balón.
+\vspace{0.35cm}
+\begin{itemize}
+    \item YOLO~\cite{YOLO}: Arquitectura de red neuronal para la \textbf{detección} de objetos (\textit{one-stage detector}). Estándar en la industria, actualmente mantenido por la librería \texttt{ultralytics}.
+    \item RT-DETR~\cite{RT-DETR}: Arquitectura basada en \textit{Transformers} para la \textbf{detección} de objetos. Al tener atención global, ``entiende'' el contexto espacial de la imagen.
+    \item ByteTrack~\cite{ByteTrack}: Algoritmo de \textbf{seguimiento} de objetos basado en el paradigma \textit{Tracking-by-detection}. Robusto en la gestión de las detecciones de baja confianza. Incluido en la librería \texttt{ultralytics}.
+    \item TrackNet~\cite{TrackNet}: Arquitectura de red neuronal diseñada especificamente para el \textbf{seguimiento} de objetos pequeños a alta velocidad, como un balón de fútbol.
+\end{itemize}
+
+\subsection{Estimación de pose humana}
+Conocer puntos corporales de los jugadores.
+\vspace{0.35cm}
+\begin{itemize}
+    \item RTMPose~\cite{RTMPose}: Arquitectura de red neuronal profunda que combina técnicas de clasificación para determinar el \textbf{esqueleto de articulaciones} en una imagen dada. Divide la imagen en sub-celdas y busca los puntos clave de las mismas.
+    \item ViTPose~\cite{ViTPose}: Arquitectura de \textit{Vision Transformer}. Su ventaja reside en la atención global, que permite al modelo ``entender'' la relación entre distintas partes del cuerpo para generar el \textbf{esqueleto de articulaciones} en condiciones de oclusión. Por ejemplo, puede inferir donde está la rodilla si ve el tobillo y la cadera.
+    \item VideoPose3D~\cite{VideoPose3D}: Modelo de red convolucional temporal que genera una \textbf{estimación 3D de la pose} del humano a partir de imágenes 2D secuenciales. Asume que las coordenadas ($x$, $y$) de los puntos del cuerpo son conocidas.
+    \item HMR~\cite{HMR}: Red neuronal que realiza una \textbf{reconstrucción volumétrica} del cuerpo humano a partir de una imagen 2D. Emplea el modelo \textit{Skinned Multi-Person Linear Model} para estimar los parámetros de forma y pose.
+\end{itemize}
+
+\subsection{Geometría del campo}
+Traducir la imagen de la cámara a coordenadas físicas.
+\vspace{0.35cm}
+\begin{itemize}
+    \item Calibración de cámara~\cite{Zhang2000}: Emplea un patrón plano (como un tablero de ajedrez) visto desde distintos ángulos para \textbf{estimar los parámetros intrínsecos de la cámara}. Incluido en la librería \texttt{opencv-python}.
+    \item Homografía~\cite{Hartley_Zisserman_2004}: Utiliza el algoritmo \textit{Direct Linear Transformation} para \textbf{calcular la matriz de homografía $\mathbf{H}$} a partir de mínimo 4 pares de puntos, que mapean los píxeles de la imagen con las coordenadas físicas. Incluido en la librería \texttt{opencv-python}.
+\end{itemize}
+
+\subsection{Literatura específica}
+Estudios específicos sobre la detección de fuera de juego en el fútbol.
+\vspace{0.35cm}
+\begin{itemize}
+    \item \textit{``An Investigation into the Feasibility of Real-Time Soccer Offside Detection From a Multiple Camera System''}~\cite{Orazio2010}: Sistema de 6 cámaras fijas (3 a cada lado del campo) sincronizadas entre sí para la detección de fuera de juego.
+          \begin{itemize}
+              \item Lógica de fuera de juego: Implementa un supervisor que \textbf{distingue entre fuera de juego pasivo y activo}. Para ello emplea las perspectivas dadas por las cámaras.
+              \item Clasificación no supervisada: Utiliza un algoritmo de \textit{clustering} basado en histogramas de color para clasificar automáticamente a los equipos y árbitros.
+              \item Reconstrucción 3D: Para calcular las coordenadas físicas exactas utiliza técnicas de homografía.
+              \item \textbf{Seguimiento de balón}: Método que genera un ``mapa de probabilidad'' basado en la velocidad y dirección previas del balón para predecir su ubicación futura.
+          \end{itemize}
+
+    \item \textit{``Camera Calibration and Player Localization in SoccerNet-v2 and Investigation of their Representations for Action Spotting''}~\cite{Cioppa2021}:
+          Propone tres formas de representar la posición de los jugadores.
+          \begin{itemize}
+              \item Vista superior: Genera una imagen 2D de la planta del campo, representando a los jugadores como cuadrados. Tal represetación es interpretada a posteriori por una red neuronal.
+              \item \textbf{Grafo de jugadores}: Modela la información como un grafo donde cada nodo es un jugador y las conexiones entre nodos se dan si los jugadores están a menos de 25 metros entre sí.
+              \item Vectores de características: Comprime la vista superior en vectores utilizando arquitecturas de red neuronal pre-entrenadas.
+          \end{itemize}
+
+          Adicionalmente, cabe mencionar la técnica de calibración de cámara empleada: un algoritmo basado en aprendizaje profundo entrenado sobre el \textbf{dataset SoccerNet-v2}~\cite{SoccerNet}. Por otro lado, utiliza la arquitectura \textbf{\textit{Mask R-CNN}} para obtener cuadros delimitadores y máscaras de los jugadores y árbitro. Almacena el color RGB promedio de cada jugador para distinguir entre equipos.
+
+          \vspace{0.15cm}
+    \item \textit{``Automated Offside Detection by Spatio-Temporal Analysis of
+              Football Videos''}~\cite{Uchida}: Propone un marco que integra la detección de objetos, clasificación de equipos y detección de pases.
+          \begin{itemize}
+              \item Análisis de eventos de pase: Detecta el cuadro exacto del pase \textbf{analizando los picos de velocidad del balón} (máximos para el pase, mínimos para la recepción).
+              \item Clasificación: Algoritmo de clasificación de equipos que extrae el color dominante y resuelve el problema para la asignación de jugadores a su equipo correspondiente.
+              \item \textbf{YOLOv5 + SORT}: Implementación de YOLOv5 para la detección de objetos y el algoritmo SORT para el seguimiento. Permite predecir la posición futura del jugador y mantener su ID incluso cuando hay oclusión temporal.
+              \item Método de Zhang: Calibración de cámara mediante un patrón físico de \textbf{tablero de ajedrez} para corregir la distorsión de la lente. Proyecta las coordenadas de los pies de los jugadores a un plano 2D, eliminando así posibles errores de perspectiva.
+          \end{itemize}
+
+    \item \textit{``A Modern Approach to Determine the Offside Law in International Football''}~\cite{Henderson2014}: Plantea un sistema que utiliza tecnología de seguimiento de jugadores para cuantificar las posiciones de los jugadores y ejecuta un algoritmo para determinar qué jugadores están en fuera de juego. La probabilidad de error del algoritmo depende de la precisión de la tecnología de seguimiento de jugadores.
+\end{itemize}
+
+
+
+\newpage
+\section{Análisis de mercado}
+De cara a validar la viabilidad y competencia del proyecto, se han analizado exhaustivamente las empresas que se dedican a la tecnología de arbitraje, sus principales tecnologías y las patentes publicadas.
+
+\subsection{Empresas y tecnologías}
+
+\begin{table}[!h]
+    \centering
+    \caption{Mercado de tecnología de arbitraje}
+    \label{tab:mercado}
+    \begin{tabular}{l|l|>{\raggedright\arraybackslash}p{7cm}}
+        \toprule
+        \textbf{Empresa}     & \textbf{Tecnología}                                    & \textbf{Funcionamiento}                                                                                                                                                                                                                              \\ \midrule
+        Dartfish             & Dartfish VAR System~\cite{dartfish_var_system}         & VAR completo, entre 8 y 10 cámaras. Certificado por la FIFA.                                                                                                                                                                                         \\ \hline
+        Dartfish             & Dartfish VAR Kiosk~\cite{dartfish_var_kiosk}           & VAR para el replay de jugadas, 8 cámaras, implementa una interfaz táctil y está preparado para una instalación en minutos.                                                                                                                           \\ \hline
+        Dartfish             & Dartfish Football Video Support~\cite{dartfish_fvs}    & Sistema de revisión. En vez de ser un sistema de monitoreo continuo, solo se usa si un equipo solicita una revisión de un momento concreto. No requiere instalación permanente, funciona con 8 cámaras y 8 fuentes de audio. Certificado por la FIFA \\ \hline
+        SLOMO.TV             & videoReferee\textregistered{R}VAR~\cite{slomo_referee} & Serie de sistemas VAR de SLOMO.TV, VAR+AVAR+RO, varias opciones con 8, 16 y 32 cámaras. Certificado por la FIFA                                                                                                                                      \\ \hline
+        DELTACAST            & DELTA-offside~\cite{delta_offside}                     & Sistema VOL (Virtual Offside Line) preparado para asistir a un sistema VAR y montado. Certificado por la FIFA                                                                                                                                        \\ \hline
+        Hawk-Eye Innovations & Hawk-Eye VAR~\cite{hawk_eye_var}                       & Se dedica expresamente a instalar VAR’s. Se especializan en contratos a nivel de liga/federación.                                                                                                                                                    \\ \hline
+        Playermaker          & Playermaker 2.0~\cite{playermaker}                     & \textit{Wearable} ajustable a la bota de los jugadores para recolectar información sobre toques de balón, pases, disparos, velocidad de regateo, etc.
+    \end{tabular}
+\end{table}
+
+Para más información sobre empresas que ofrecen tecnología de arbitraje certificadas por la FIFA, consultar \href{https://inside.fifa.com/innovation/standards/virtual-offside-lines}{FIFA Offside Technology}.
+
+\subsection{Patentes}
+\begin{itemize}
+    \item US10853658B2~\cite{patent_sony}: Esta patente publicada por Sony, protege un dispositivo electrónico encargado de capturar una secuencia de imágenes a partir de la cual:
+          \begin{enumerate}
+              \item Estima la posición de cada jugador.
+              \item Estima el vector de velocidad del balón.
+              \item Determina si se ha realizado un pase.
+              \item Determina las potenciales posiciones de fuera de juego.
+              \item Calcula la distancia entre la pelota y cada jugador.
+              \item Compara las distancias y determina si hubo fuera de juego.
+          \end{enumerate}
+          Adicionalmente, el dispositivo electrónico debe tomar las imágenes desde un ángulo cenital de al menos una mitad del campo y al menos uno de los sensores debe estar suspendido por un dron o un cable.
+    \item * M-007077/2019: El término ``VAR'' está registrado como propiedad intelectual y sólo aquellos sistemas certificados por la FIFA pueden utilizarlo para su uso oficial en competiciones, productos y servicios.
+\end{itemize}
+
+% \section{Frameworks}
+% Con miras a la implementación del proyecto, se han propuesto diversas tecnologías como solución al problema de detección de fuera de juego en el fútbol.
+
+\bibliographystyle{IEEEtran}
+\nocite{*}
+\bibliography{references}
+
+\end{document}
