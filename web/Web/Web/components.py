@@ -2,6 +2,7 @@ import reflex as rx
 from .state import VideoState
 
 def video_card(ruta_video: rx.Var[str]):
+    # Extraemos el nombre para mostrarlo en la tarjeta
     nombre_archivo = ruta_video.split("/")[-1]
     
     return rx.card(
@@ -15,16 +16,17 @@ def video_card(ruta_video: rx.Var[str]):
         cursor="pointer",
         width="160px",
         background_color="#1a1a1a",
-        border=f"1px solid transparent",
+        border="1px solid transparent",
         _hover={
             "transform": "scale(1.05)", 
             "transition": "0.3s ease",
-            "border": f"1px solid #3B6840",
+            "border": "1px solid #3B6840",
             "box_shadow": "0px 4px 15px rgba(59, 104, 64, 0.4)"
         },
     )
 
 def fila_categoria(item):
+    # item[0] es la clave (nombre carpeta), item[1] es el valor (lista videos)
     nombre_cat = item[0]
     lista_vids = item[1]
     

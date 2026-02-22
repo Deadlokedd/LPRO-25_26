@@ -12,10 +12,16 @@ def index() -> rx.Component:
     return rx.vstack(
         rx.center(
             rx.vstack(
-                rx.heading("Mi Videoteca", size="8", color="white"),
+                rx.heading("VAR", size="8", color="white"),
                 rx.cond(
                     VideoState.video_actual != "",
-                    rx.video(src=VideoState.video_actual, width="850px", height="auto", controls=True, key=VideoState.video_actual),
+                    rx.video(
+                        src=VideoState.video_actual, 
+                        width="850px", 
+                        height="auto", 
+                        controls=True, 
+                        key=VideoState.video_actual
+                    ),
                     rx.box(
                         rx.text("Selecciona un video de la biblioteca", color="white", opacity="0.7"),
                         width="850px", height="480px", 
@@ -31,9 +37,9 @@ def index() -> rx.Component:
             ),
             width="100%",
         ),
-
         rx.container(
             rx.vstack(
+                # Ahora iteramos sobre el diccionario de estado directo
                 rx.foreach(VideoState.biblioteca, fila_categoria),
                 width="100%",
                 spacing="6",
@@ -46,7 +52,6 @@ def index() -> rx.Component:
         min_height="100vh"
     )
 
-
 app = rx.App(
     style=estilos_base,
     theme=rx.theme(
@@ -55,4 +60,6 @@ app = rx.App(
         radius="medium"
     )
 )
-app.add_page(index)
+
+# Línea corregida: Se añade el evento on_load para disparar el watchdog
+app.add_page(index, on_load=VideoState.setup_watchdog)
