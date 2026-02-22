@@ -209,6 +209,9 @@ __marimo__/
 # Video files
 *.mp4
 
+# Image files
+*.jpeg
+
 # Reflex
 .web/
 assets/node_modules/
