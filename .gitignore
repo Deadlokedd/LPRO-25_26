@@ -208,3 +208,8 @@ __marimo__/
 
 # Video files
 *.mp4
+
+# Reflex
+.web/
+assets/node_modules/
+.next/
