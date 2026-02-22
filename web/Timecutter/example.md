@@ -1,0 +1,1 @@
+curl -X POST "http://127.0.0.1:8001/extract-frame"      -H "Content-Type: application/json"      -d '{"video_path": "../videos/music/Willyrex_Paradise.mp4", "time_seconds": 46.66}' --output frame_capturado.jpeg

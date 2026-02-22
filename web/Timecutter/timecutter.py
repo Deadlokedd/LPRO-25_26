@@ -35,7 +35,7 @@ async def extract_frame(request: VideoRequest):
         raise HTTPException(status_code=400, detail="No se pudo extraer el frame en ese tiempo")
 
     # 3. Codificar la imagen en memoria (formato .jpg)
-    _, buffer = cv2.imencode(".jpg", frame)
+    _, buffer = cv2.imencode(".jpeg", frame)
     
     # 4. Retornar la imagen como respuesta HTTP
     return Response(content=buffer.tobytes(), media_type="image/jpeg")
