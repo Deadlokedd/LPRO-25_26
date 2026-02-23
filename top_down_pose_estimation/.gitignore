@@ -1,0 +1,14 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# YOLO models
+*.pt
+
+# Media
+media/
+
+# IDE
+.vscode/
+.idea/
