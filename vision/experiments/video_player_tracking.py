@@ -1,12 +1,13 @@
+"""Experiment: object tracking in video (people + ball)."""
 import pathlib
-ROOT_DIR = pathlib.Path(__file__).parent.parent.parent
-MEDIA_DIR = ROOT_DIR / "media"
-VIDEOS_DIR = MEDIA_DIR / "raw" / "videos"
-video_path = VIDEOS_DIR / "match1.mp4"
-
 from ultralytics import YOLO
 
-model = YOLO('yolo26x.pt') 
+_VISION_DIR = pathlib.Path(__file__).resolve().parent.parent
+_PROJECT_ROOT = _VISION_DIR.parent
+VIDEOS_DIR = _PROJECT_ROOT / "data" / "raw" / "videos"
+video_path = VIDEOS_DIR / "match1.mp4"
+
+model = YOLO(str(_VISION_DIR / "models" / "yolo26x.pt"))
 
 results = model.track(
     source=video_path,

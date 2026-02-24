@@ -1,14 +1,20 @@
 import cv2
+import shutil
 
-def create_dirs(*dirs):
-    """Create directories if they don't exist."""
+
+def clean_dirs(*dirs):
+    """Remove and recreate directories to start fresh."""
     for d in dirs:
+        if d.exists():
+            shutil.rmtree(d)
         d.mkdir(parents=True, exist_ok=True)
+
 
 def save_img(image, path, filename):
     """Save image to disk."""
     full_path = path / filename
     cv2.imwrite(str(full_path), image)
+
 
 def get_match_subdir(base_path, img_path):
     """Generate and create the subdirectory based on the match name."""

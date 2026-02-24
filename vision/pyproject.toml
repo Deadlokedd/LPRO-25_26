@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "vision"
+version = "0.1.0"
+requires-python = ">=3.10"
+dependencies = [
+    "ultralytics>=8.0",
+    "opencv-python>=4.8",
+    "numpy>=1.24",
+    "realesrgan>=0.3",
+    "basicsr-fixed>=1.4",
+    "lapx>=0.5",
+    "torch>=2.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["src*"]
