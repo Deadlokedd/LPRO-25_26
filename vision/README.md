@@ -1,6 +1,6 @@
 # Vision
 
-https://github.com/user-attachments/assets/f6760e55-6f45-42f5-b4c9-e7a09e65b030
+![Image](https://github.com/user-attachments/assets/f6760e55-6f45-42f5-b4c9-e7a09e65b030)
 
 ## Estructura
 
