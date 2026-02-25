@@ -10,10 +10,8 @@ _VISION_DIR = pathlib.Path(__file__).resolve().parent.parent
 
 # --- MODELS ---
 _MODELS_DIR = _VISION_DIR / "models"
-DET_MODEL_PATH = str(_MODELS_DIR / "yolo26x.pt")
-POSE_MODEL_PATH = str(_MODELS_DIR / "yolo26x-pose.pt")
-DET_CONF = 0.25
-POSE_CONF = 0.10
+MMPOSE_POSE2D_MODEL = 'wholebody'
+MMPOSE_CONF = 0.10
 
 SR_MODEL_URLS = {
     'RealESRGAN_x2plus': 'https://github.com/xinntao/Real-ESRGAN/releases/download/v0.2.1/RealESRGAN_x2plus.pth',
@@ -31,11 +29,22 @@ LINE_THICKNESS = 2
 GLOBAL_POINT_RADIUS = 3
 GLOBAL_LINE_THICKNESS = 2
 
-# Pose keypoints: Head (0-4), Shoulders (5-6), Hips (11-12), Knees (13-14), Ankles (15-16)
-POINTS_TO_DRAW = {0, 1, 2, 3, 4, 5, 6, 11, 12, 13, 14, 15, 16}
-CUSTOM_SKELETON = [
-    (5, 6), (11, 12), (5, 11), (6, 12), # Trunk
-    (11, 13), (13, 15),                 # Left leg
-    (12, 14), (14, 16),                 # Right leg
-    (0, 1), (0, 2), (1, 3), (2, 4)      # Head
+# Pose keypoints for offsides
+OFFSIDE_KEYPOINTS = {
+    0: 'nose', 1: 'left_eye', 2: 'right_eye', 3: 'left_ear', 4: 'right_ear',
+    5: 'left_shoulder', 6: 'right_shoulder',
+    11: 'left_hip', 12: 'right_hip',
+    13: 'left_knee', 14: 'right_knee',
+    15: 'left_ankle', 16: 'right_ankle',
+    17: 'left_big_toe', 18: 'left_small_toe', 19: 'left_heel',
+    20: 'right_big_toe', 21: 'right_small_toe', 22: 'right_heel'
+}
+
+OFFSIDE_SKELETON = [
+    (0, 1), (0, 2), (1, 3), (2, 4),           # Face
+    (5, 6), (11, 12), (5, 11), (6, 12),       # Trunk
+    (11, 13), (13, 15),                       # Left leg
+    (12, 14), (14, 16),                       # Right leg
+    (15, 17), (15, 18), (15, 19),             # Left foot
+    (16, 20), (16, 21), (16, 22)              # Right foot
 ]

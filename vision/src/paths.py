@@ -13,7 +13,5 @@ VIDEOS_DIR = _PROJECT_ROOT / "data" / "raw" / "videos"
 
 # Output
 RESULTS_DIR = _PROJECT_ROOT / "data" / "results"
-PLAYER_CROPS_OUT = RESULTS_DIR / "player_crops"
-FULL_FRAME_DET_OUT = RESULTS_DIR / "full_frame_detections"
 FULL_FRAME_POSE_OUT = RESULTS_DIR / "full_frame_pose"
 

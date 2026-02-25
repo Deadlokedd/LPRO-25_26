@@ -5,15 +5,18 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "vision"
 version = "0.1.0"
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 dependencies = [
-    "ultralytics>=8.0",
-    "opencv-python>=4.8",
-    "numpy>=1.24",
+    "opencv-python<4.10",
+    "numpy<2.0.0",
     "realesrgan>=0.3",
     "basicsr-fixed>=1.4",
     "lapx>=0.5",
-    "torch>=2.0",
+    "torch==2.1.0",
+    "torchvision==0.16.0",
+    "mmengine",
+    "mmdet",
+    "mmpose",
 ]
 
 [tool.setuptools.packages.find]

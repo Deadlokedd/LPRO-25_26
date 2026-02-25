@@ -7,21 +7,9 @@
 ```
 LPRO-25_26/
 ├── vision/            
-├── hardware/          
-├── backend/           
-├── frontend/          
 ├── data/              
 └── docs/              
 ```
-
-## Módulos
-
-| Módulo | Descripción |
-|--------|-------------|
-| [vision/](vision/) | |
-| [hardware/](hardware/) | |
-| [backend/](backend/) | |
-| [frontend/](frontend/) | |
 
 
 ## Documentación
