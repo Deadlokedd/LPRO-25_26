@@ -1,6 +1,6 @@
 # Vision
 
-Pipeline de detección de jugadores y estimación de pose.
+Pipeline de estimación de pose en el frame global, basado en MMPose.
 
 <!-- ## Estructura
 
@@ -10,20 +10,16 @@ vision/
 ├── scripts/
 │   └── setup.sh                       # Creación de venv + instalación
 ├── models/                            # Pesos de modelos (en .gitignore)
-│   ├── yolo26x.pt
-│   ├── yolo26x-pose.pt
 │   └── RealESRGAN_x2plus.pth
 ├── src/                               # Paquete Python principal
 │   ├── __init__.py
-│   ├── config.py                      # Parámetros de modelo y dibujo
+│   ├── config.py                      # Parámetros de modelo de pose y Super-Resolution
 │   ├── paths.py                       # Rutas I/O (solo para CLI)
-│   ├── pipeline.py                    # Lógica principal
+│   ├── pipeline.py                    # Lógica principal usando MMPose
 │   ├── main.py                        # Script CLI
 │   └── utils/
-│       ├── image_processor.py         # Recorte, resize y mapeo de keypoints
 │       ├── super_resolution.py        # Super-resolución con Real-ESRGAN
-│       ├── visualizer.py              # Dibujo de esqueleto
-│       └── io_handler.py              # Guardado de imágenes y directorios
+│       └── io_handler.py              # I/O de archivos y directorios
 └── experiments/                       # Scripts de pruebas
     ├── img_pose_estimation.py
     ├── video_player_tracking.py
