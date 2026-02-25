@@ -14,4 +14,3 @@ VIDEOS_DIR = _PROJECT_ROOT / "data" / "raw" / "videos"
 # Output
 RESULTS_DIR = _PROJECT_ROOT / "data" / "results"
 FULL_FRAME_POSE_OUT = RESULTS_DIR / "full_frame_pose"
-
