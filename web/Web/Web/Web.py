@@ -40,7 +40,7 @@ def index() -> rx.Component:
         rx.container(
             rx.vstack(
                 # Ahora iteramos sobre el diccionario de estado directo
-                rx.foreach(VideoState.biblioteca, fila_categoria),
+                rx.foreach(VideoState.biblioteca.items(), fila_categoria),
                 width="100%",
                 spacing="6",
             ),
