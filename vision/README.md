@@ -1,7 +1,8 @@
 # Vision
 
+https://github.com/user-attachments/assets/f6760e55-6f45-42f5-b4c9-e7a09e65b030
 
-<!-- ## Estructura
+## Estructura
 
 ```
 vision/
@@ -18,7 +19,7 @@ vision/
 │       └── io_handler.py              # I/O de archivos y directorios
 └── experiments/                       # Scripts de pruebas
     └── gpu_info.py
-``` -->
+```
 
 ## Instalación
 
@@ -32,7 +33,8 @@ vision/
 ```bash
 cd vision
 bash scripts/setup.sh # Si el usuario (Windows/Linux) no tiene GPU, añadir flag --cpu
-source .venv/bin/activate
+source .venv/bin/activate # Linux / macOS
+.\.venv\Scripts\Activate.ps1 # Windows
 ```
 
 El script `setup.sh` crea el entorno virtual e instala el paquete con sus dependencias.
