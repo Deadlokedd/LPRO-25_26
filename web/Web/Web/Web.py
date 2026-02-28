@@ -12,7 +12,7 @@ def index() -> rx.Component:
     return rx.vstack(
         rx.center(
             rx.vstack(
-                rx.heading("VAR", size="8", color="white"),
+                rx.heading("BOLA", size="8", color="white"),
                 rx.cond(
                     VideoState.video_actual != "",
                     rx.video(

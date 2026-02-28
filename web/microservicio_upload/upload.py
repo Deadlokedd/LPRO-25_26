@@ -24,7 +24,7 @@ async def upload_video(file: UploadFile = File(...), camera_id: str = "1"):
     PROJECT_ROOT = os.path.dirname(BASE_DIR)
 
     # Construimos la ruta destino
-    VIDEO_DIR = os.path.join(PROJECT_ROOT, "Web", "assets", "videos")
+    VIDEO_DIR = os.path.join(PROJECT_ROOT, "Web", "assets", "videos", "revision")
     os.makedirs(VIDEO_DIR, exist_ok=True)
 
     # Abre un archivo nuevo en la carpeta 'videos' y escribe el contenido del archivo subido
